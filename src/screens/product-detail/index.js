@@ -13,7 +13,7 @@
      <SafeAreaView style={styles.container}>
        <View style={styles.container}>
          <Text>Product Detail</Text>
-        
+         <Button title="Pop to Top" onPress={() => navigation.popToTop()} />
        </View>
      </SafeAreaView>
    );
