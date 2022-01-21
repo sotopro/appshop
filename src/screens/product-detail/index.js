@@ -8,12 +8,15 @@
 
  import styles from './styles';
  
- const ProductDetail = ({navigation}) => {
+ const ProductDetail = ({navigation, route}) => {
+   const { product } = route.params
    return (
      <SafeAreaView style={styles.container}>
        <View style={styles.container}>
-         <Text>Product Detail</Text>
-         <Button title="Pop to Top" onPress={() => navigation.popToTop()} />
+         <Text>{product.name}</Text>
+         <Text>{product.description}</Text>
+         <Text>{product.weight}</Text>
+         <Text>$ {product.price}</Text>
        </View>
      </SafeAreaView>
    );

@@ -1,22 +1,41 @@
  import React from 'react';
  import {
    SafeAreaView,
-   Text,
+   FlatList,
    View,
-   Button
  } from 'react-native';
-
- import styles from './styles';
+import { BREADS } from '../../utils/data/breads';
+import ProductItem from '../../components/products-item/index';
+import styles from './styles';
  
- const Products = ({navigation}) => {
+ const Products = ({navigation, route}) => {
+  const breads = BREADS.filter(bread => bread.category === route.params.categoryId);
+
+  const handleSelectedProduct = (item) => {
+    navigation.navigate('ProductDetail', 
+      {
+        productId: item.id,
+        name: item.name,
+        product: item
+      }
+    );
+  }
+
+  const renderProducts= ({item}) => {
+    return (
+      <ProductItem item={item} onSelected={handleSelectedProduct} />
+    )
+  }
    return (
-     <SafeAreaView style={styles.container}>
-       <View style={styles.container}>
-         <Text>Products</Text>
-         <Button title="Go to Product Detail" onPress={() => navigation.navigate('ProductDetail')} />
-         <Button title="Go back" onPress={() => navigation.goBack()} />
-       </View>
-     </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <FlatList
+         data={breads}
+         renderItem={renderProducts}
+         keyExtractor={item => item.id}
+       />
+    </View>
+  </SafeAreaView>
    );
  };
  

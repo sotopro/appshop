@@ -15,7 +15,7 @@ import { CATEGORIES } from '../../utils/data/categories';
       {
         categoryId: item.id,
         name: item.title,
-        color: item.color
+        color: item.color,
       }
     );
   }
