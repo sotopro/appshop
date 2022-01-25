@@ -1,49 +1,18 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Categories from '../screens/categories/index';
-import ProductDetail from '../screens/product-detail/index';
-import Products from '../screens/products/index';
-import { Platform } from 'react-native';
-import { COLORS } from '../utils/constants/colors';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ShopStackNavigation from './shop';
+import CartStackNavigation from './cart';
 
-
-const Stack = createNativeStackNavigator();
+const BottomTabs = createBottomTabNavigator();
 
 const AppNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator
-                initialRouteName='Categories'
-                screenOptions={{
-                    headerStyle: {
-                        backgroundColor: Platform.OS === 'android' ? COLORS.primary : '',
-                    },
-                    headerTintColor: Platform.OS === 'android' ? 'white' : COLORS.primary,
-                    headerTitleStyle: {
-                        fontWeight: 'bold'
-                    }
-                }}
-            >
-                <Stack.Screen name="Categories" component={Categories} />
-                <Stack.Screen 
-                    name="Products"
-                    component={Products}
-                    options={({ route }) => ({
-                        title: route.params.name,
-                        headerStyle: {
-                            backgroundColor: route.params.color
-                        },
-                    })}
-                />
-                <Stack.Screen 
-                    name="ProductDetail"
-                    component={ProductDetail}
-                    options={({ route }) => ({
-                        title: route.params.name,
-                    })}
-                />
-            </Stack.Navigator>
+            <BottomTabs.Navigator initialRouteName='Shop'>
+                <BottomTabs.Screen name='Shop' component={ShopStackNavigation} />
+                <BottomTabs.Screen name='Cart' component={CartStackNavigation} />
+            </BottomTabs.Navigator>
         </NavigationContainer>
     )
 }
