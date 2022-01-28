@@ -5,18 +5,19 @@
    View,
    Button
  } from 'react-native';
+ import { useSelector } from 'react-redux';
 
  import styles from './styles';
  
  const ProductDetail = ({navigation, route}) => {
-   const { product } = route.params
+   const bread = useSelector(state => state.breads.selected);
    return (
      <SafeAreaView style={styles.container}>
        <View style={styles.container}>
-         <Text>{product.name}</Text>
-         <Text>{product.description}</Text>
-         <Text>{product.weight}</Text>
-         <Text>$ {product.price}</Text>
+         <Text>{bread.name}</Text>
+         <Text>{bread.description}</Text>
+         <Text>{bread.weight}</Text>
+         <Text>$ {bread.price}</Text>
        </View>
      </SafeAreaView>
    );
