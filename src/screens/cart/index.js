@@ -3,14 +3,14 @@ import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import CartItem from "../../components/cart-item";
 import { useSelector, useDispatch } from "react-redux";
-import { removeItem } from "../../store/actions/cart.action";
+import { removeItem, confirmCart } from "../../store/actions/cart.action";
 const Cart = () => {
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
     const total = useSelector(state => state.cart.total);
 
     const handleConfirm = () => {
-        console.warn("Confirmar compra");
+        dispatch(confirmCart(items, total));
     }
 
     const handleDelete = (id) => {
