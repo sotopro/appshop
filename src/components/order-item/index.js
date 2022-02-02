@@ -2,10 +2,12 @@ import React from 'react';
 import {
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 
-const OrderItem = ({item}) => {
+const OrderItem = ({item, onDelete}) => {
   const formatDate = (time) => {
     const date = new Date(time);
     return date.toLocaleDateString();
@@ -17,7 +19,11 @@ const OrderItem = ({item}) => {
         </View>
         <View style={styles.details}>
           <Text>$ {item.total}</Text>
+          <TouchableOpacity onPress={() => onDelete(item.id)}>
+            <Ionicons name="trash-outline" size={20} />
+        </TouchableOpacity>
         </View>
+        
     </View>
   );
 };

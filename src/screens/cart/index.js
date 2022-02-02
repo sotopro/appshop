@@ -4,13 +4,15 @@ import styles from "./styles";
 import CartItem from "../../components/cart-item";
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, confirmCart } from "../../store/actions/cart.action";
-const Cart = () => {
+
+const Cart = ({navigation}) => {
     const dispatch = useDispatch();
     const items = useSelector(state => state.cart.items);
     const total = useSelector(state => state.cart.total);
 
     const handleConfirm = () => {
         dispatch(confirmCart(items, total));
+        navigation.navigate("Orders");
     }
 
     const handleDelete = (id) => {
