@@ -1,5 +1,6 @@
 import { CATEGORIES } from '../../utils/data/categories';
 import { SELECT_CATEGORY } from '../actions/category.action';
+
 const initialState = {
     categories: CATEGORIES,
     selected: null
