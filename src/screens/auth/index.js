@@ -54,7 +54,6 @@ const Auth = ({ navigation }) => {
         if(isLogin) {
             dispatch(signin(email, password))
         } else {
-            console.warn({email, password})
             dispatch(signup(email, password))
         }
     }
