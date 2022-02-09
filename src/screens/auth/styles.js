@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     containerCard: {
-        height: height / 2,
-        width: width * 0.7,
+        width: width / 1.3,
+        height: height / 1.55,
         backgroundColor: '#fff',
         borderRadius: 10,
         padding: 20,
@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     },
     containerForm: {
         flex: 1,
+        justifyContent: 'flex-start',
     },
     label: {
         fontSize: 12,
