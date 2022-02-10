@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     containerCard: {
-        height: height / 2,
+        height: height / 1.6,
         width: width * 0.7,
         backgroundColor: '#fff',
         borderRadius: 10,
