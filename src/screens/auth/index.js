@@ -1,54 +1,17 @@
-import React, { useState,  useReducer, useCallback } from 'react'
+import React, { useState,  useRef } from 'react'
 import { Text, View, Button, TextInput, TouchableOpacity, Image, KeyboardAvoidingView, Alert } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { signup, signin } from '../../store/actions/auth.action';
 import { styles } from './styles'
+import Input from '../../components/input';
 
-const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
-
-export const formReducer = (state, action) => {
-    if(action.type === FORM_INPUT_UPDATE) {
-        const inputValues = {
-            ...state.inputValues,
-            [action.input]: action.value
-        }
-
-        const inputValidities = {
-            ...state.inputValidities,
-            [action.input]: action.isValid
-        }
-
-        let formIsValid = true;
-
-        for(const key in inputValidities) {
-            formIsValid = formIsValid && inputValidities[key];
-        }
-
-        return {
-            formIsValid,
-            inputValidities,
-            inputValues
-        }
-    }
-
-    return state;
-}
 
 const Auth = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLogin, setIsLogin] = useState(true);
-    const [formState, formDispatch] = useReducer(formReducer, {
-        inputValues: {
-            email: '',
-            password: ''
-        },
-        inputValidities: {
-            email: false,
-            password: false
-        },
-        formIsValid: false
-    })
+    const emailInput = useRef();
+
     const dispatch = useDispatch();
     const  handleAuth= () => {
         if(isLogin) {
@@ -58,21 +21,32 @@ const Auth = ({ navigation }) => {
         }
     }
 
-    const handlerInputChange = useCallback((inputIndetifier, inputValue, inputValidity) => {
-        formDispatch({
-            type: FORM_INPUT_UPDATE,
-            value: inputValue,
-            isValid: inputValidity,
-            input: inputIndetifier
-        });
-    }, [formDispatch]);
+    const onchange = (value, type) => {
+        if(type === 'email') {
+            setEmail(value)
+        }
+
+        console.warn({value: emailInput.current.state.value, validate: emailInput.current.state.validate})
+    }
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
             <View style={styles.containerCard}>
                 <Text style={styles.formTitle}>{isLogin ? 'Login' : 'Registro'}</Text>
                 <View style={styles.containerForm}>
-                    <Text style={styles.label}>Email</Text>
+                    <Input 
+                        ref={emailInput}
+                        label='Email' 
+                        placeholder='Ingresa tu correo'
+                        placeholderTextColor="#999"
+                        keyboardType="email-address"
+                        type='email'
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        onChangeInput={(value) => onchange(value, 'email')}
+                        maxLength={60}
+                    />
+                    {/* <Text style={styles.label}>Email</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Email"
@@ -82,6 +56,7 @@ const Auth = ({ navigation }) => {
                         autoCorrect={false}
                         onChangeText={(text) => setEmail(text)}
                         value={email}
+                        
                     />
                     <Text style={styles.label}>Password</Text>
                     <TextInput
@@ -93,7 +68,7 @@ const Auth = ({ navigation }) => {
                         secureTextEntry={true}
                         onChangeText={(text) => setPassword(text)}
                         value={password}
-                    />
+                    /> */}
                 </View>
                 <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
                     <Text style={styles.linkText}>{isLogin ? '¿No tienes una cuenta? registrate' : '¿Ya tienes una cuenta?'}</Text>
